@@ -1,0 +1,42 @@
+# Nombre de la librería
+NAME	= libft.a
+
+# Todos los archivos que se van a compilar ".c"
+SRC	= ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_strlen.c ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c ft_toupper.c ft_tolower.c ft_strncmp.c ft_strncmp.c
+
+# Header universal para todos los archivos con todos los "include" y los "prototipos" necesario
+HEADER	= libft.h
+
+# Sources ".c" ya compilados ".o"
+OBJS	= $(SRC:.c = .o)
+
+# Flags con las que se van a compilar los archivos
+CFLAGS	= -Wall -Werror -Wextra
+
+# Crea la librería "libft.a" con los archivos ".o"
+AR	= ar rcs
+
+# Con lo que lo compila
+CC	= gcc
+
+___________________________
+
+
+all: $(NAME)
+$(OBJS): $(HEADER)
+$(NAME): $(OBJS)
+	$(AR) $(NAME) $(OBJS)
+
+clean:
+	rm -rf *.o
+
+fclean: clean
+	rm $(NAME)
+
+re: fclean all
+
+so: $(OBJS)
+	$(CC) -nostartfiles -fPIC $(CFLAGS) -shared -o libft.so $(OBJS)
+
+.PHONY: all clean fclean re	
+
